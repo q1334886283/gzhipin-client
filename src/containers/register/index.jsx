@@ -48,7 +48,7 @@ class Register extends Component {
 
         const {usertype} = this.state;
         const {msg, redirectTo} = this.props.user;
-        //如果redirectTo有值，则需要重定向到指定路由
+        // 如果redirectTo有值，则需要重定向到指定路由
         if (redirectTo) {
             return <Redirect to={redirectTo}/>
         }

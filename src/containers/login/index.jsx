@@ -7,11 +7,14 @@ import {
     List,
     InputItem
 } from "antd-mobile";
+import {connect} from "react-redux";
+import {Redirect} from "react-router-dom";
 
-import Logo from "../../components/logo"
+import Logo from "../../components/logo";
+import {login} from "../../redux/actions";
 
 //登录组件
-export default class Login extends Component {
+class Login extends Component {
 
     state = {
         username: "", //用户名
@@ -20,7 +23,7 @@ export default class Login extends Component {
 
     //登录监听事件
     login = () => {
-        console.log(this.state);
+        this.props.login(this.state);
     }
 
     //处理输入数据的改变：更新对应的状态
@@ -36,6 +39,12 @@ export default class Login extends Component {
     }
 
     render() {
+
+        const {msg, redirectTo} = this.props.user;
+        if (redirectTo) {
+            return <Redirect to={redirectTo}/>
+        }
+
         return (
             <div>
                 <NavBar>硅&nbsp;谷&nbsp;直&nbsp;聘</NavBar>
@@ -43,9 +52,16 @@ export default class Login extends Component {
                 <Logo/>
                 <WhiteSpace/>
                 <WingBlank>
+                    {
+                        msg ? <div className="error-msg">{msg}</div> : null
+                    }
                     <List>
-                        <InputItem placeholder="请输入用户名" onChange={val => {this.handleChange("username", val)}}>用户名：</InputItem>
-                        <InputItem type="password" placeholder="请输入密码" onChange={val => {this.handleChange("password", val)}}>密&nbsp;&nbsp;&nbsp;码：</InputItem>
+                        <InputItem placeholder="请输入用户名" onChange={val => {
+                            this.handleChange("username", val)
+                        }}>用户名：</InputItem>
+                        <InputItem type="password" placeholder="请输入密码" onChange={val => {
+                            this.handleChange("password", val)
+                        }}>密&nbsp;&nbsp;&nbsp;码：</InputItem>
                         <WhiteSpace/>
                         <Button type="primary" onClick={this.login}>登&nbsp;&nbsp;&nbsp;录</Button>
                         <WhiteSpace/>
@@ -56,3 +72,8 @@ export default class Login extends Component {
         )
     }
 }
+
+export default connect(
+    state => ({user: state.user}),
+    {login}
+)(Login)
