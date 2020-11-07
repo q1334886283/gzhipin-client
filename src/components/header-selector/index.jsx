@@ -9,7 +9,7 @@ export default class HeaderSelector extends Component {
         for (let i = 0; i < 20; i++) {
             this.HeaderList.push({
                 text: `头像${i + 1}`,
-                icon: require(`./images/头像${i + 1}.png`)
+                icon: require(`../../assets/images/头像${i + 1}.png`)
             });
         }
     }

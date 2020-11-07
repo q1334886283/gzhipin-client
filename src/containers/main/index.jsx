@@ -56,7 +56,6 @@ class Main extends Component {
         const {_id} = this.props.user;
         if (userid && !_id) {
             //发送异步请求，获取user
-            // console.log("发送ajax请求获取user")
             this.props.getUser();
         }
     }

@@ -14,6 +14,7 @@ export default function ajax(url, data = {}, type = "GET") {
         })
         if (paramStr) {
             paramStr = paramStr.substring(0, paramStr.length - 1)
+            url += "?" + paramStr;
         }
         return axios.get(url);
     } else { //发送post请求

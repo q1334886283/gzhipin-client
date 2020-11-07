@@ -1,13 +1,14 @@
 /*
     包含n个reducer函数：根据老的state和指定的action返回一个新的state
  */
-import {combineReducers} from "redux"
+import {combineReducers} from "redux";
 
 import {
     AUTH_SUCCESS,
     ERROR_MSG,
     RECIEVE_USER,
-    RESET_USER
+    RESET_USER,
+    RECIEVE_USER_LIST
 } from "./action-type"
 
 import {getRedirectTo} from "../utils"
@@ -30,13 +31,25 @@ function user(state = initUser, action) {
         case RECIEVE_USER: //data是user
             return action.data;
         case RESET_USER: //data是msg
-            return {...initUser, msg: action.data}
+            return {...initUser, msg: action.data};
         default:
             return state;
     }
 }
 
+//产生userlist状态的reducer
+function userList(state = initUserList, action) {
+    switch (action.type) {
+        case RECIEVE_USER_LIST: //data为userlist
+            return action.data;
+        default:
+            return state;
+    }
+}
+const initUserList = [];
+
 export default combineReducers({
-    user
+    user,
+    userList
 })
 //向外暴露的状态的结构：{xxx:0, yyy:0}
