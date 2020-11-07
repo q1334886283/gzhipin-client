@@ -5,21 +5,28 @@
  */
 import {
     AUTH_SUCCESS,
-    ERROR_MSG
+    ERROR_MSG,
+    RECIEVE_USER,
+    RESET_USER
 } from "./action-type";
 import {
     reqRegister,
-    reqLogin
+    reqLogin,
+    reqUpdateUser,
+    reqUser
 } from "../api";
 
 //授权成功的同步action
-const authSucess = (user) => ({type: AUTH_SUCCESS, data: user});
+const authSucess = user => ({type: AUTH_SUCCESS, data: user});
 //错误提示信息的action
-const errorMsg = (msg) => ({type: ERROR_MSG, data: msg});
-
+const errorMsg = msg => ({type: ERROR_MSG, data: msg});
+//接收用户的同步action
+const recieveUser = user => ({type: RECIEVE_USER, data: user});
+//重置用户的同步action
+const resetUser = msg => ({type: RESET_USER, data: msg});
 
 //注册异步的action
-export const register = (user) => {
+export const register = user => {
     const {username, password, confirmpassword, usertype} = user;
     //前台进行表单验证，验证不通过则要返回errorMsg的同步action
     if (!username) {
@@ -43,7 +50,7 @@ export const register = (user) => {
 }
 
 //登录异步的action
-export const login = (user) => {
+export const login = user => {
     const {username, password} = user;
     //前台进行表单验证，验证不通过则要返回errorMsg的同步action
     if (!username) {
@@ -65,3 +72,36 @@ export const login = (user) => {
         }
     }
 }
+
+//更新用户异步的action
+export const updateUser = user => {
+
+    return async dispatch => {
+        const response = await reqUpdateUser(user);
+        const result = response.data;
+        if (result.code === 0) { //更新成功
+            //分发接收用户的action
+            dispatch(recieveUser(result.data));
+        } else { //更新失败
+            // 分发重置用户的action
+            dispatch(resetUser(result.msg));
+        }
+    }
+}
+
+//获取用户异步的action
+export const getUser = () => {
+
+    return async dispatch => {
+        const response = await reqUser();
+        const result = response.data;
+        if (result.code === 0) { //获取成功
+            //分发接收用户的action
+            dispatch(recieveUser(result.data));
+        } else { //获取失败
+            // 分发重置用户的action
+            dispatch(resetUser(result.msg));
+    }
+    }
+}
+

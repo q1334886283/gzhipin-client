@@ -1,5 +1,11 @@
-.error-msg {
+.error-msg { /*错误提示信息*/
     color: red;
     text-align: center;
     font-size: 18px;
+}
+
+.am-tab-bar { /* 将导航栏固定在底部*/
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
