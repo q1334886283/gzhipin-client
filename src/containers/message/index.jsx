@@ -8,7 +8,7 @@ class Message extends Component {
 
     render() {
         return (
-            <div>
+            <div className="common-bar">
                 Message
             </div>
         )

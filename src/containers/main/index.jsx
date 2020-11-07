@@ -104,7 +104,7 @@ class Main extends Component {
         return (
             <div>
                 {
-                    currentNav ? <NavBar>{currentNav.title}</NavBar> : null
+                    currentNav ? <NavBar className="stick-header">{currentNav.title}</NavBar> : null
                 }
                 <Switch>
                     {

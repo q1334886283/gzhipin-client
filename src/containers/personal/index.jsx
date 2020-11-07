@@ -34,7 +34,7 @@ class Personal extends Component {
         const {header, username, company, post, info, salary} = this.props.user;
 
         return (
-            <div>
+            <div className="common-bar">
                 <Result
                     img={<img src={require(`../../assets/images/${header}.png`)} style={{width: "50px"}} alt="header"/>}
                     title={username}

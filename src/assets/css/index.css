@@ -10,3 +10,15 @@
     width: 100%;
     height: inherit; /* 包裹内容,内容多高高度就是多少*/
 }
+
+.stick-header { /* 将顶部标题固定在顶部*/
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 99999;
+    background-color: #1cae82;
+}
+
+.common-bar {
+    margin: 50px 0;
+}

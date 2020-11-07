@@ -18,7 +18,7 @@ export default class UserList extends Component {
         const {userList=[]} = this.props;
 
         return (
-            <WingBlank>
+            <WingBlank className="common-bar">
                 {
                     userList.map(user => (
                         <div key={user._id}>
