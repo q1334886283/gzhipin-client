@@ -3,6 +3,7 @@
     异步action
     同步action
  */
+import io from "socket.io-client"; //引入客户端io
 import {
     AUTH_SUCCESS,
     ERROR_MSG,
@@ -17,6 +18,18 @@ import {
     reqUser,
     reqUserList
 } from "../api";
+
+//封装initIO方法
+function initIO() {
+    if (!io.socket) {
+        //连接服务器，得到代表连接的socket对象
+        io.socket = io("ws://localhost:4000");
+        //绑定"recieveMessage"的监听，爱接收服务器发送的消息
+        io.socket.on("recieveMsg", function (data) {
+            console.log("浏览器接收到消息：", data);
+        });
+    }
+}
 
 //授权成功的同步action
 const authSucess = user => ({type: AUTH_SUCCESS, data: user});
@@ -120,5 +133,16 @@ export const getUserList = usertype => {
         if (result.code === 0) {
             dispatch(recieveUserList(result.data));
         }
+    }
+}
+
+//发送消息的异步action
+export const sendMsg = ({from, to, content}) => {
+
+    return dispatch => {
+        console.log("发送消息", {from, to, content});
+        initIO();
+        //发消息
+        io.socket.emit("sendMsg", {from, to, content});
     }
 }

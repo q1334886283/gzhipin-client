@@ -12,6 +12,9 @@ import Main from "./containers/main";
 import Login from "./containers/login";
 import Register from "./containers/register";
 
+import "./assets/css/index.css";
+import "./test/socketio_test";
+
 ReactDOM.render((
     <Provider store={store}>
         <HashRouter>

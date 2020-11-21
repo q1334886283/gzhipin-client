@@ -1,12 +1,13 @@
 import React, {Component} from "react";
-import {WhiteSpace, WingBlank, Card} from "antd-mobile";
 import PropTypes from "prop-types";
+import {withRouter} from "react-router-dom";
+import {WhiteSpace, WingBlank, Card} from "antd-mobile";
 
 const Header = Card.Header;
 const Body = Card.Body
 
 //显示指定用户列表的UI组件
-export default class UserList extends Component {
+class UserList extends Component {
 
     static propTypes = {
         userList: PropTypes.array.isRequired
@@ -15,7 +16,7 @@ export default class UserList extends Component {
     render() {
 
         //获取用户列表
-        const {userList=[]} = this.props;
+        const {userList = []} = this.props;
 
         return (
             <WingBlank className="common-bar">
@@ -23,7 +24,7 @@ export default class UserList extends Component {
                     userList.map(user => (
                         <div key={user._id}>
                             <WhiteSpace/>
-                            <Card>
+                            <Card onClick={() => this.props.history.push(`/chat/${user._id}`)}>
                                 <Header
                                     thumb={require(`../../assets/images/${user.header}.png`)}
                                     extra={user.username}
@@ -42,3 +43,5 @@ export default class UserList extends Component {
         )
     }
 }
+
+export default withRouter(UserList);

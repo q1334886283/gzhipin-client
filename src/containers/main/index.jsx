@@ -1,19 +1,20 @@
-import React, {Component} from "react";
 import Cookies from "js-cookie";
+import {NavBar} from "antd-mobile";
 import {connect} from "react-redux";
+import React, {Component} from "react";
 import {Switch, Route, Redirect} from "react-router-dom";
 
 import Boss from "../boss";
+import Chat from "../chart";
 import Dashen from "../dashen";
 import Message from "../message";
 import Personal from "../personal";
 import {getRedirectTo} from "../../utils"
 import {getUser} from "../../redux/actions";
-import NotFound from "../../components/not-found";
 import BossInfo from "../../containers/boss-info";
-import DashenInfo from "../../containers/dashen-info";
-import {NavBar} from "antd-mobile";
+import NotFound from "../../components/not-found";
 import NavFooter from "../../components/nav-footer";
+import DashenInfo from "../../containers/dashen-info";
 
 //主页面组件
 class Main extends Component {
@@ -113,6 +114,7 @@ class Main extends Component {
                     }
                     <Route path="/bossinfo" component={BossInfo}/>
                     <Route path="/dasheninfo" component={DashenInfo}/>
+                    <Route path="/chat/:userid" component={Chat}/>
                     <Route component={NotFound}/>
                 </Switch>
                 {

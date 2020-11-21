@@ -2,8 +2,8 @@
     找不到界面提示UI组件
  */
 import React, {Component} from "react";
-import {connect} from "react-redux";
 import {Button} from "antd-mobile/lib/index";
+import {withRouter} from "react-router-dom";
 
 class NotFound extends Component {
 
@@ -13,7 +13,7 @@ class NotFound extends Component {
                 <h2>抱歉，找不到页面！</h2>
                 <Button
                     type="primary"
-                    onClick={this.props.history.replace("/")}
+                    onClick={() => this.props.history.replace("/")}
                 >
                     返回首页
                 </Button>
@@ -22,7 +22,5 @@ class NotFound extends Component {
     }
 }
 
-export default connect(
-    state => ({}),
-    {}
-)(NotFound)
+export default withRouter(NotFound);
+
